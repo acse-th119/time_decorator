@@ -1,0 +1,26 @@
+import time
+from functools import wraps
+import random
+
+
+def record_time(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        t1 = time.time()
+        res = func(*args, **kwargs)
+        t2 = time.time()
+        print("args{} take {}s".format(args[0], t2-t1))
+        return res
+    
+    return wrapper
+
+
+@record_time
+def random_sort_1(n):
+    time.sleep(3)
+    return sorted([random.random() for i in range(n)])
+
+
+if __name__ == "__main__":
+    x = random_sort_1(100)
+    print(x)
